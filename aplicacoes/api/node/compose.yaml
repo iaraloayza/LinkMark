@@ -14,7 +14,7 @@ services:
       DB_USER: linkmark_api
       DB_PASSWORD: linkmark
       DB_NAME: linkmark
-      FRONTEND_URL: http://localhost:80
+      FRONTEND_URL: http://localhost:8080
     depends_on:
       - mysql
     networks:

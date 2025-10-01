@@ -11,7 +11,8 @@ services:
   nginx:
     image: nginx:1.25-alpine
     ports:
-      - "80:80"
+      # Relaizei a troca da porta 80 pela 8080 pois estava dando conflito com outros projetos Apache que tenho
+      - "8080:80"
     volumes:
       - ./src:/var/www/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
