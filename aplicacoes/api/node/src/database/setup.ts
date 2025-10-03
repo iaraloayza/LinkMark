@@ -1,4 +1,4 @@
-import { db } from './index';
+import { db } from './index.js';
 import fs from 'fs';
 import path from 'path';
 

@@ -17,11 +17,17 @@ $apiUrl = getenv('API_URL') ?: 'http://localhost:8000';
 
 <div class="container">
     <div class="panel">
-
+        <h3>Adicionar Link</h3>
+        <form id="form-link">
+            <input id="title" placeholder="Título" required/>
+            <input id="url" placeholder="URL" required/>
+            <button type="submit">Salvar</button>
+        </form>
     </div>
 
     <div class="panel" style="margin-top: 16px;">
-
+        <h3>Meus Links</h3>
+        <ul id="links"></ul>
     </div>
 
     <div class="footer">
