@@ -1,16 +1,17 @@
 import { Router } from 'express';
-import { getLinks, createLink, deleteLink } from '../controllers/link.controller.js';
-import { getCategories, createCategory } from '../controllers/category.controller.js';
+import authRoutes from './auth.js';
+import categoriesRoutes from './categories.js';
+import linksRoutes from './links.js';
 
 const router = Router();
 
-// Links
-router.get('/links', getLinks);
-router.post('/links', createLink);
-router.delete('/links/:id', deleteLink);
+// Rotas de autenticação
+router.use('/auth', authRoutes);
 
-// Categorias
-router.get('/categories', getCategories);
-router.post('/categories', createCategory);
+// Rotas de categorias
+router.use('/categories', categoriesRoutes);
+
+// Rotas de links
+router.use('/links', linksRoutes);
 
 export default router;
