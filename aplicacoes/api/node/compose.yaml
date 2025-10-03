@@ -4,11 +4,12 @@ services:
     user: node
     working_dir: /home/node/app
     volumes:
-      - ./src:/home/node/app
+      - ./:/home/node/app
     ports:
-      - "8000:3000"
-    command: sh -c "npm install && npm run start:dev"
+      - "8000:8000"
+    command: sh -c "sleep 10 && npm install && npm run start:dev"
     environment:
+      PORT: 8000
       DB_HOST: mysql
       DB_PORT: 3306
       DB_USER: linkmark_api
@@ -16,7 +17,8 @@ services:
       DB_NAME: linkmark
       FRONTEND_URL: http://localhost:8080
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - api
 
@@ -30,8 +32,15 @@ services:
       MYSQL_ROOT_PASSWORD: linkmark
     volumes:
       - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"   # mapeia a porta 3306 do container para 3307 no host (localhost)
     networks:
       - api
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-plinkmark"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 networks:
   api:
