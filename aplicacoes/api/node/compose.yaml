@@ -4,7 +4,7 @@ services:
     user: node
     working_dir: /home/node/app
     volumes:
-      - ./src:/home/node/app
+      - ./:/home/node/app
     ports:
       - "8000:3000"
     command: sh -c "npm install && npm run start:dev"
@@ -30,6 +30,8 @@ services:
       MYSQL_ROOT_PASSWORD: linkmark
     volumes:
       - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"   # mapeia a porta 3306 do container para 3307 no host (localhost)
     networks:
       - api
 
