@@ -1,4 +1,5 @@
 import mysql from 'mysql2/promise';
+import bcrypt from 'bcrypt';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -29,8 +30,10 @@ async function waitForDatabase(retries = 10) {
   throw new Error('Não foi possível conectar ao MySQL');
 }
 
-async function runSQLFile(connection, filePath) {
-  console.log(`📄 Lendo arquivo: ${filePath}`);
+async function runMigrations(connection) {
+  console.log('📄 Lendo migrations...');
+  
+  const filePath = path.join(__dirname, 'migrations.sql');
   
   if (!fs.existsSync(filePath)) {
     throw new Error(`Arquivo não encontrado: ${filePath}`);
@@ -55,6 +58,35 @@ async function runSQLFile(connection, filePath) {
   }
 }
 
+async function runSeed(connection) {
+  console.log('🌱 Inserindo dados de exemplo com senhas criptografadas...\n');
+  
+  // Gera hashes para as senhas
+  const password1 = await bcrypt.hash('123456', 10);
+  const password2 = await bcrypt.hash('123456', 10);
+  
+  console.log('  → Inserindo usuários...');
+  await connection.query(
+    'INSERT INTO users (name, email, password) VALUES (?, ?, ?), (?, ?, ?)',
+    ['Usuário Teste', 'teste@exemplo.com', password1, 'João Silva', 'joao@exemplo.com', password2]
+  );
+  
+  console.log('  → Inserindo categorias...');
+  await connection.query(
+    `INSERT INTO categories (name, user_id) VALUES 
+     ('Trabalho', 1), ('Estudos', 1), ('Pessoal', 1), ('Projetos', 2)`
+  );
+  
+  console.log('  → Inserindo links...');
+  await connection.query(
+    `INSERT INTO links (title, url, description, category_id, user_id) VALUES 
+     ('Google', 'https://google.com', 'Motor de busca', 1, 1),
+     ('GitHub', 'https://github.com', 'Repositórios de código', 1, 1),
+     ('YouTube', 'https://youtube.com', 'Vídeos educacionais', 2, 1),
+     ('Stack Overflow', 'https://stackoverflow.com', 'Dúvidas de programação', 2, 1)`
+  );
+}
+
 async function main() {
   let connection = null;
   
@@ -66,14 +98,16 @@ async function main() {
     connection = await mysql.createConnection(dbConfig);
     
     console.log('\n🔄 Executando migrations...');
-    await runSQLFile(connection, path.join(__dirname, 'migrations.sql'));
+    await runMigrations(connection);
     console.log('✅ Migrations concluídas!\n');
     
-    console.log('🌱 Inserindo dados de exemplo...');
-    await runSQLFile(connection, path.join(__dirname, 'seed.sql'));
+    await runSeed(connection);
     console.log('✅ Seed concluído!\n');
     
     console.log('🎉 Setup do banco de dados finalizado com sucesso!\n');
+    console.log('📝 Credenciais para teste:');
+    console.log('   Email: teste@exemplo.com');
+    console.log('   Senha: 123456\n');
     
   } catch (err) {
     console.error('\n❌ Erro durante o setup:', err.message);
