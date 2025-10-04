@@ -94,7 +94,12 @@ LinkMark/
 - Docker e Docker Compose instalados
 - Portas 8000 (API) e 8080 (Web) disponíveis
 
-> **⚠️ Observação sobre Portas:** A porta padrão do frontend foi alterada de **80** para **8080** para evitar conflitos com outros projetos Apache que possuo rodando localmente. A configuração de CORS no backend (`FRONTEND_URL`) também foi ajustada para refletir essa mudança.
+> **⚠️ Observação sobre Portas:**  
+> - A porta padrão do frontend foi alterada de **80** para **8080** para evitar conflitos com outros projetos Apache que possuo rodando localmente.  
+> - A configuração de CORS no backend (`FRONTEND_URL`) também foi ajustada para refletir essa mudança.  
+> - O **MySQL dentro do container** roda na porta **3306**, mas no **host (sua máquina)** ele está mapeado para a porta **3307**.  
+>   Portanto, se você quiser acessar o banco de dados a partir de um SGBD (como HeidiSQL ou DBeaver), utilize a porta **3307** em vez de **3306**.
+
 
 ### 1. Clonar o Repositório
 ```bash
@@ -103,6 +108,15 @@ cd LinkMark
 ```
 
 ### 2. Subir a API (Backend)
+
+- *Terminal 1:*
+
+```bash
+cd aplicacoes/api/node
+docker compose -f compose.yaml up --build
+```
+
+*Ou*
 
 ```bash
 cd aplicacoes/api/node
@@ -113,7 +127,10 @@ Aguarde cerca de 15 segundos para o MySQL inicializar completamente.
 
 ### 3. Executar Migrations e Seeds
 
+- *Terminal 2:*
+
 ```bash
+cd aplicacoes/api/node
 docker exec -it node-node-1 npm run setup-db
 ```
 
@@ -132,8 +149,17 @@ ou
 
 ### 4. Subir o Frontend
 
+- *Terminal 3:*
+
 ```bash
-cd ../web
+cd aplicacoes/web
+docker compose -f compose.yaml up --build
+```
+
+*Ou*
+
+```bash
+cd aplicacoes/web
 docker compose up -d
 ```
 
@@ -271,6 +297,14 @@ docker compose down
 - ✅ Arquitetura escalável
 - ✅ Commits organizados e descritivos
 - ✅ README completo com instruções claras
+
+## 📸 Páginas da Aplicação
+
+![Tela de Login](docs/login.png)
+![Tela de Cadastro](docs/cadastro.png)
+![Verificação de cadastro](docs/dashboard.png)
+![Tela Inicial de Contatos](docs/todos_links.png)
+![Modal de Criação de Contato](docs/links_filtrados.png)
 
 ## 👨‍💻 Desenvolvedora
 
