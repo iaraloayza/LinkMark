@@ -302,9 +302,9 @@ docker compose down
 
 ![Tela de Login](docs/login.png)
 ![Tela de Cadastro](docs/cadastro.png)
-![Verificação de cadastro](docs/dashboard.png)
-![Tela Inicial de Contatos](docs/todos_links.png)
-![Modal de Criação de Contato](docs/links_filtrados.png)
+![Dashboard do LinkMark](docs/dashboard.png)
+![Listagem de Todos os Links](docs/todos_links.png)
+![Listagem de Links Filtrados - Filtro: Entretenimento](docs/links_filtrados.png)
 
 ## 👨‍💻 Desenvolvedora
 
