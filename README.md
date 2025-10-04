@@ -300,11 +300,35 @@ docker compose down
 
 ## 📸 Páginas da Aplicação
 
-![Tela de Login](docs/login.png)
-![Tela de Cadastro](docs/cadastro.png)
-![Dashboard do LinkMark](docs/dashboard.png)
-![Listagem de Todos os Links](docs/todos_links.png)
-![Listagem de Links Filtrados - Filtro: Entretenimento](docs/links_filtrados.png)
+<p align="center">
+  <img src="docs/login.png" alt="Tela de Login" width="600"/>
+  <br/>
+  <strong>Tela de Login</strong>
+</p>
+
+<p align="center">
+  <img src="docs/cadastro.png" alt="Tela de Cadastro" width="600"/>
+  <br/>
+  <strong>Tela de Cadastro</strong>
+</p>
+
+<p align="center">
+  <img src="docs/dashboard.png" alt="Dashboard do LinkMark" width="600"/>
+  <br/>
+  <strong>Dashboard do LinkMark</strong>
+</p>
+
+<p align="center">
+  <img src="docs/todos_links.png" alt="Listagem de Todos os Links" width="600"/>
+  <br/>
+  <strong>Listagem de Todos os Links</strong>
+</p>
+
+<p align="center">
+  <img src="docs/links_filtrados.png" alt="Listagem de Links Filtrados - Filtro: Entretenimento" width="600"/>
+  <br/>
+  <strong>Listagem de Links Filtrados - Filtro: Entretenimento</strong>
+</p>
 
 ## 👨‍💻 Desenvolvedora
 
