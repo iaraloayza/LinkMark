@@ -1,7 +1,7 @@
 -- Criação da tabela users
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
+  `name` VARCHAR(100) NOT NULL,
   email VARCHAR(150) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -11,12 +11,12 @@ CREATE TABLE IF NOT EXISTS users (
 -- Criação da tabela categories
 CREATE TABLE IF NOT EXISTS categories (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
+  `name` VARCHAR(100) NOT NULL,
   user_id INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   INDEX idx_user (user_id),
-  UNIQUE KEY unique_user_category (user_id, name)
+  UNIQUE KEY unique_user_category (user_id, `name`)
 );
 
 -- Criação da tabela links
